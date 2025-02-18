@@ -1,0 +1,40 @@
+<!-- login.component.html -->
+<div class="login-container">
+    <h2>Login</h2>
+  
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <div>
+        <label for="username">Username:</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="loginData.username"
+          required
+        />
+      </div>
+  
+      <div>
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="loginData.password"
+          required
+        />
+      </div>
+  
+      <button type="submit" [disabled]="!loginForm.valid">Login</button>
+    </form>
+    <!-- login.component.html -->
+    
+    <p *ngIf="loginError" class="error-message">{{ loginError }}</p>
+    <ul>
+        <ng-container *ngIf="items.length > 5">
+          <li *ngFor="let item of items">{{ item }}</li>
+        </ng-container>
+      </ul>
+      
+  </div>
+  

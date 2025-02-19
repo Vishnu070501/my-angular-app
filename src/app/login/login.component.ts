@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 interface LoginData {
   username: string;
@@ -16,6 +18,7 @@ interface LoginData {
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  constructor(private router: Router) {}
   items: string[] = ['Apple', 'Banana', 'Orange','mf' ,'mf', 'mf'];
   loginData: LoginData = {
     username: '',
@@ -29,8 +32,8 @@ export class LoginComponent {
       this.loginData.password === 'password123'
     ) {
       this.loginError = null;
-      alert('Login successful!');
-      // Redirect to another page or dashboard (example)
+      localStorage.setItem('access_token', 'your-token-value');
+      this.router.navigate(['pages/dashboard']);
     } else {
       this.loginError = 'Invalid username or password';
     }

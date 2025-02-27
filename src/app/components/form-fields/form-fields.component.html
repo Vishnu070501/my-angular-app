@@ -1,0 +1,52 @@
+<div class="form-field">
+  <label [for]="id">{{label}}:</label>
+  <div class="input-container">
+    <ng-container [ngSwitch]="type">
+      <select *ngSwitchCase="'select'"
+        [id]="id"
+        [name]="name"
+        [required]="required"
+        [(ngModel)]="value"
+        (ngModelChange)="valueChange.emit($event)"
+        #selectField="ngModel"
+        [class.invalid]="selectField.invalid && selectField.touched"
+        [class.valid]="selectField.valid && selectField.touched">
+        <option value="" disabled>Select {{label}}</option>
+        <option *ngFor="let opt of options" [value]="opt.value">
+          {{opt.label}}
+        </option>
+      </select>
+
+      <ng-container *ngSwitchDefault>
+        <input
+          [type]="showPassword ? 'text' : type"
+          [id]="id"
+          [name]="name"
+          [required]="required"
+          [(ngModel)]="value"
+          (ngModelChange)="onInputChange($event)"
+          #inputField="ngModel"
+          [class.invalid]="inputField.invalid && inputField.touched"
+          [class.valid]="inputField.valid && inputField.touched"
+        />
+        <button
+          type="button"
+          class="view-password"
+          *ngIf="type === 'password'"
+          (mousedown)="showPassword = true"
+          (mouseup)="showPassword = false"
+          (mouseleave)="showPassword = false"
+        >
+          👁️
+        </button>
+      </ng-container>
+    </ng-container>
+    
+    <div class="error-message" *ngIf="field?.invalid && field?.touched">
+      <span *ngIf="field?.errors?.['required']">{{label}} is required</span>
+    </div>
+  </div>
+</div>
+<!-- For child rendering -->
+<!-- <ng-content select="[header]"></ng-content>
+<ng-content select="[footer]"></ng-content> -->

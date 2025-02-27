@@ -1,40 +1,45 @@
-<!-- login.component.html -->
 <div class="login-container">
-    <h2>Login</h2>
-  
-    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-      <div>
-        <label for="username">Username:</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          [(ngModel)]="loginData.email"
-          required
-        />
-      </div>
-  
-      <div>
-        <label for="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          [(ngModel)]="loginData.password"
-          required
-        />
-      </div>
-  
-      <button type="submit" [disabled]="!loginForm.valid">Login</button>
-    </form>
-    <!-- login.component.html -->
+  <h2>Login</h2>
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <app-form-fields
+      *ngFor="let field of formFields"
+      [label]="field.label"
+      [type]="field.type"
+      [id]="field.id"
+      [name]="field.name"
+      [required]="field.required"
+      [options]="field.options"
+      [value]="loginData[field.property]"
+      (valueChange)="updateFormValidity(field.property, $event)">
+    </app-form-fields>
     
-    <p *ngIf="loginError" class="error-message">{{ loginError }}</p>
-    <ul>
-        <ng-container *ngIf="items.length > 5">
-          <li *ngFor="let item of items">{{ item }}</li>
-        </ng-container>
-      </ul>
-      
+    <button type="submit" [disabled]="!formValid">Login</button>
+  </form>
+</div>
+
+
+
+   <!-- <div class="header" ngProjectAs="[header]">Header Content</div>
+  <div class="footer" ngProjectAs="[footer]">Footer Content</div> -->
+
+
+  <p *ngIf="loginError" class="error-message">{{ loginError }}</p>
+  <ul>
+    <ng-container *ngIf="items.length > 5">
+      <li *ngFor="let item of items">{{ item }}</li>
+    </ng-container>
+  </ul>
+  <div [ngStyle]="{
+    'background-color': getBackgroundColor(),
+    'padding': '20px',
+    'margin': '10px 0',
+    'border-radius': '4px',
+    'transition': 'all 0.3s ease',
+    'cursor': 'pointer'
+  }"
+  (mouseenter)="handleMouse(true)"
+  (mouseleave)="handleMouse(false)">
+    Username Status Indicator: {{loginData.email}}
   </div>
+  
   

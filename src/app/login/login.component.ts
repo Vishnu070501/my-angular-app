@@ -110,10 +110,6 @@ formFields: FormField[] = [
   updateFormValidity(fieldName: string, value: any) {
     // Update the specific field in loginData
     this.loginData[fieldName as keyof LoginData] = value;
-    
-    // Log the current state
-    console.log('Field updated:', fieldName, value);
-    console.log('Current loginData:', this.loginData);
   
     // Validate all fields
     this.formValid = this.formFields.every(field => {
@@ -134,12 +130,12 @@ formFields: FormField[] = [
 async onSubmit() {
   try {
     console.log('submit');
-    const response: any = await this.dataService.postData('auth/signin/', this.loginData);
-    
+    const response: any = await this.dataService.postData('accounts/sign-in/', this.loginData);
+    console.log(response);
     if (response.success && isPlatformBrowser(this.platformId)) {
       this.loginError = null;
-      localStorage.setItem('access_token', response.data.tokens.access);
-      localStorage.setItem('refresh_token', response.data.tokens.refresh);
+      localStorage.setItem('access_token', response.data.access);
+      localStorage.setItem('refresh_token', response.data.refresh);
       localStorage.setItem('user_name', response.data.user.name);
       console.log(response);
       await this.router.navigate(['pages/dashboard']);

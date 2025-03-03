@@ -14,7 +14,7 @@ const pagesRoutes: Routes = [
       // Example:
       // { path: 'user-profile', component: UserProfileComponent },
       // { path: 'settings', component: SettingsComponent },
-      { path: 'dashboard', component: DashboardComponent },
+      { path: 'dashboard', loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent) },
     ]
   }
 ];

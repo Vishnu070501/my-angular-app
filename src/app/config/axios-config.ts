@@ -13,10 +13,14 @@ export class AxiosConfig {
   static initialize() {
     this.instance.interceptors.request.use(
       (config) => {
-        const token = localStorage.getItem('access_token');
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
+        const url = config.url || '';
+        if (!url.includes('sign-in') && !url.includes('sign-up')) {
+          const token = localStorage.getItem('access_token');
+          if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+          }
         }
+        
         return config;
       },
       (error) => {

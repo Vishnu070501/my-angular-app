@@ -1,6 +1,6 @@
 <div class="dashboard">
     <h1>Welcome to Dashboard</h1>
-    <button (click)="logout()">Logout</button>
+    <button (click)="logout()">Logout</button><button (click)="isTaskModalOpen=true">Add Task</button>
     <div [ngStyle]="{
       'display': 'flex',
       'flex-direction': 'column',
@@ -15,6 +15,6 @@
       [isClickedArray]="clickedArray"
       (rowClicked)="rowClicked($event)"
       />
+      <app-task-modal *ngIf="isTaskModalOpen" (closeModal)="setTaskModalOpen()"/>
     </div>
-    
   </div>

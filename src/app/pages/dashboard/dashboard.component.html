@@ -1,4 +1,20 @@
 <div class="dashboard">
     <h1>Welcome to Dashboard</h1>
     <button (click)="logout()">Logout</button>
+    <div [ngStyle]="{
+      'display': 'flex',
+      'flex-direction': 'column',
+      'max-height': '120px',
+      'overflow-y': 'scroll',
+      width: '70%',
+      }">
+      <app-my-row
+      *ngFor="let row of rows; let i = index"
+      [id]="i.toString()"
+      [content]="row.content"
+      [isClickedArray]="clickedArray"
+      (rowClicked)="rowClicked($event)"
+      />
+    </div>
+    
   </div>

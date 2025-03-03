@@ -1,0 +1,18 @@
+<div
+[id] = "id"
+[ngStyle]="{
+    'background-color': 'grey',
+    'height': getHeight(id),
+    'border': '1px solid grey',
+    'border-radius': '5px',
+    'width': '100%',
+    'cursor': 'pointer',
+    'margin-top': '10px',
+    'padding': '10px',
+}"
+(mouseenter)="hovered = true"
+(mouseleave)="hovered = false"
+(click)="rowClicked.emit(id)"
+>
+{{ content }}
+</div>

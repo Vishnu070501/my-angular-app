@@ -55,6 +55,12 @@ interface LoginData {
 export class LoginComponent {
   formValid: boolean = false;
   isHovered: boolean = false;
+  isIndicatorClicked: boolean = false;
+
+   handleClick = () => {
+    console.log(this.isIndicatorClicked);
+    this.isIndicatorClicked = !this.isIndicatorClicked;
+  }
 
   loginData: LoginData = {
     email: '',
